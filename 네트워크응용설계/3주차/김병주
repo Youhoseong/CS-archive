@@ -1,0 +1,36 @@
+# 병주 공간 - 한번 쓰다 날아가서 핵심만 씀
+
+## 1. 패킷 로스의 세가지 유형
+ - Link Loss : 비트에러, 노이즈, 간섭, 충돌, 요새는 잘 안남
+ - Queue Loss : 현대 네트워크의 중요 로스 원인
+ - Drop : 내꺼 아니거나, 형식 안맞거나, 루프 & TTL 만료 됐을 때
+ 
+## 2. 패킷 로스 - 링크 로스
+ - Bit Error Rate(BER)
+ - Packet Error Rate(PER)
+   - (1-p)^L, p:BER, L:Packet Size
+ - ETX (q: 전송 실패 확률)
+   - 이상적 경우 : 1 / (1 - q)
+     - 만약 k 번째 시도까지로 제한한다면 : ((1-q^k+1) / (1-q)) + (k-1)q^k
+   - 현실 : 1 / (1-q)^2
+   
+## 3. Throughput(처리량)
+ - is not bandwidth (대역폭이랑 같은거 아니다)
+ - 송신자 - 수신자간 처리량
+ - 여러개의 링크 있으면, 가장 작은 대역폭 가진게 처리량
+   - 공유 대역폭이면, n빵한거랑 다른 대역폭이랑 비교해서 가장 작은거
+   
+## 4. 프로토콜 & OSI 7계층
+ - 네트워크는 복잡해서 계층화, 추상화해야함
+ - 순서대로,
+   - Application - Presentation - Session - Transport - Network - Link - Physical
+ - 인터넷 프로토콜 스택은,
+   - Application - Transport - Network - Link - Physical
+   - Application에 두 계층 합침
+ - 각 계층의 관점에서, 호스트끼리 통신할 땐 계층끼리 통신하는것 처럼 착각함
+ - Router는 IP 주소 이용해서 3계층에서 사용, Switch/Hub는 2계층에서 사용
+ - Narrow Waist model
+
+## 5. Encapsulation / Decapsulation
+ - Message를 기준으로, TCP/UDP 헤더, IP 헤더, Link 헤더 순으로 캡슐화
+ - Decapsulation은 반대로
